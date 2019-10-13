@@ -8,6 +8,7 @@ import java.io.IOException;
 import com.google.gson.stream.JsonReader;
 import com.opencsv.CSVReader;
 
+import model.data_structures.ArbolRojoNegro;
 import model.data_structures.LinearProbingHashST;
 import model.data_structures.MaxPQ;
 
@@ -23,6 +24,7 @@ public class MVCModelo {
 	private MaxPQ<Viaje> colaDia;
 	private MaxPQ<Viaje> colaHora;
 	private LinearProbingHashST<Integer, Nodo> nodos;
+	private ArbolRojoNegro<Integer, Zona> zonas;
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
