@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import com.google.gson.stream.JsonReader;
 import com.opencsv.CSVReader;
 
 import model.data_structures.LinearProbingHashST;
@@ -48,7 +49,18 @@ public class MVCModelo {
 	
 	public void cargarJsonArbol()
 	{
-		
+		String path = "./data/data.json";
+		JsonReader reader;
+		try {
+			reader = new JsonReader(new FileReader(path));
+			Message[] lista3 = gson.fromJson(reader, Message[].class);
+			System.out.println(Arrays.toString(lista3));
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void cargarTxtHash() throws IOException
