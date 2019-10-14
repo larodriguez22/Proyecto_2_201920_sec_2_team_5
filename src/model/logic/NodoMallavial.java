@@ -1,12 +1,12 @@
 package model.logic;
 
-public class Nodo 
+public class NodoMallavial 
 {
 	private int id;
 	private double longitud;
 	private double latitud;
 	
-	public Nodo(String _id, String _longitud, String _latitud)
+	public NodoMallavial(String _id, String _longitud, String _latitud)
 	{
 		id=Integer.parseInt(_id);
 		longitud=Double.parseDouble(_longitud);

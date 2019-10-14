@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.opencsv.CSVReader;
 
@@ -23,8 +24,8 @@ public class MVCModelo {
 	private MaxPQ<Viaje> colaMes;
 	private MaxPQ<Viaje> colaDia;
 	private MaxPQ<Viaje> colaHora;
-	private LinearProbingHashST<Integer, Nodo> nodos;
-	private ArbolRojoNegro<Integer, Zona> zonas;
+	private LinearProbingHashST<Integer, NodoMallavial> nodos;
+	private ArbolRojoNegro<Integer, Feature> featureCollection ;
 
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
@@ -52,11 +53,12 @@ public class MVCModelo {
 	public void cargarJsonArbol()
 	{
 		String path = "./data/data.json";
+		Gson gson = new Gson();
 		JsonReader reader;
 		try {
 			reader = new JsonReader(new FileReader(path));
-			Message[] lista3 = gson.fromJson(reader, Message[].class);
-			System.out.println(Arrays.toString(lista3));
+			Object featureCollection = gson.fromJson(reader,  Feature.class );
+			
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -77,7 +79,7 @@ public class MVCModelo {
         {
         	// Parte la línea con cada coma
             String[] partes = linea.split( "," );
-            Nodo nodoAux= new Nodo(partes[0], partes[1], partes[2]);
+            NodoMallavial nodoAux= new NodoMallavial(partes[0], partes[1], partes[2]);
             int key=Integer.parseInt(partes[0]);
             nodos.put(key, nodoAux);
         	linea=lector.readLine();
