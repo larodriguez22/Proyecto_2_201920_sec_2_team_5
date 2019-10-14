@@ -13,7 +13,7 @@ public class TestMVCModelo {
 	
 	@Before
 	public void setUp1() {
-		modelo= new MVCModelo(CAPACIDAD);
+		modelo= new MVCModelo();
 	}
 
 	public void setUp2() {

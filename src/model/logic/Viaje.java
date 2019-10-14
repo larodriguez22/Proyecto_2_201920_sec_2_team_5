@@ -9,7 +9,7 @@ public class Viaje
 	private double mean_travel_time;
 	private double standard_deviation_travel_time;
 	
-	Viaje(int _trimestre, String _sourceid, String _dstid, String _info, String _mean_travel_time, String _standard_deviation_travel_time)
+	public Viaje(int _trimestre, String _sourceid, String _dstid, String _info, String _mean_travel_time, String _standard_deviation_travel_time)
 	{
 		setTrimestre(_trimestre);
 		setSourceid(Double.parseDouble(_sourceid));
