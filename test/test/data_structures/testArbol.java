@@ -21,5 +21,24 @@ public class testArbol {
 		assertEquals("hay un error",h.get(2).equals("b"));
 		assertFalse("No hay un error",h.get(2).equals("c"));
 	}
+	public void testDelete(){
+		setUp1();
+		h.delete(3);
+		assertFalse("hay un error",h.get(3)=="c");
+		
+	}
+	public void testDeleteMax(){
+		setUp1();
+		h.deleteMax();
+		assertFalse("hay un error",h.get(5).equals("e"));
+		
+	}
+	public void testDeleteMin(){
+		setUp1();
+		h.deleteMin();
+		assertFalse("hay un error",h.get(1).equals("a"));
+		
+	}
+
 	
 }

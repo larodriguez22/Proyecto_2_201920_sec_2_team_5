@@ -1,6 +1,6 @@
 package model.logic;
 
-public class Viaje
+public class Viaje implements Comparable<Viaje>
 {
 	private double trimestre;
 	private double sourceid;
@@ -9,7 +9,7 @@ public class Viaje
 	private double mean_travel_time;
 	private double standard_deviation_travel_time;
 	
-	public Viaje(int _trimestre, String _sourceid, String _dstid, String _info, String _mean_travel_time, String _standard_deviation_travel_time)
+	Viaje(int _trimestre, String _sourceid, String _dstid, String _info, String _mean_travel_time, String _standard_deviation_travel_time)
 	{
 		setTrimestre(_trimestre);
 		setSourceid(Double.parseDouble(_sourceid));
@@ -65,6 +65,24 @@ public class Viaje
 
 	public void setTrimestre(double trimestre) {
 		this.trimestre = trimestre;
+	}
+
+	@Override
+	public int compareTo(Viaje that) {
+		// TODO Auto-generated method stub
+				if(this.mean_travel_time>that.mean_travel_time)
+				{
+					return 1;
+				}
+				else if(this.mean_travel_time>that.mean_travel_time)
+				{
+					return -1;
+				}
+				else
+				{
+					return 0;
+				}
+	
 	}
 
 }
