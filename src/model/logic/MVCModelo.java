@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 
@@ -15,7 +16,7 @@ import com.opencsv.CSVReader;
 import model.data_structures.ArbolRojoNegro;
 import model.data_structures.LinearProbingHashST;
 import model.data_structures.MaxPQ;
-
+import model.data_structures.Queue;
 import model.logic.Feature;
 import model.logic.Properties;
 import model.logic.Geometry;
@@ -56,7 +57,7 @@ public class MVCModelo {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void cargarJsonArbol()
 	{
 		String path = "./data/bogota_cadastral.json";
@@ -82,20 +83,20 @@ public class MVCModelo {
 		// Utiliza un BufferedReader para leer por líneas
 		BufferedReader lector = new BufferedReader( reader );   
 		// Lee línea por línea del archivo
-        String linea = lector.readLine( );
-        while(linea!=null)
-        {
-        	// Parte la línea con cada coma
-            String[] partes = linea.split( "," );
-            NodoMallavial nodoAux= new NodoMallavial(partes[0], partes[1], partes[2]);
-            int key=Integer.parseInt(partes[0]);
-            nodos.put(key, nodoAux);
-        	linea=lector.readLine();
-        }
-        // Cierra los lectores y devuelve el resultado
-        lector.close( );
-        reader.close( );
-        System.out.println("El numero actual de nodos cargados es: "+nodos.size());
+		String linea = lector.readLine( );
+		while(linea!=null)
+		{
+			// Parte la línea con cada coma
+			String[] partes = linea.split( "," );
+			NodoMallavial nodoAux= new NodoMallavial(partes[0], partes[1], partes[2]);
+			int key=Integer.parseInt(partes[0]);
+			nodos.put(key, nodoAux);
+			linea=lector.readLine();
+		}
+		// Cierra los lectores y devuelve el resultado
+		lector.close( );
+		reader.close( );
+		System.out.println("El numero actual de nodos cargados es: "+nodos.size());
 	}
 
 	public void cargarCSVPriorityQueue() throws Exception 
@@ -167,52 +168,112 @@ public class MVCModelo {
 
 	public void NLetrasFrecuentesZona(int n) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void buscarNodosDelimitanZona(double latitud, double longitud) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void tiempoPromedioRango(int n, double limiteBajoTiempo, double limiteAltoTiempo) {
 		// TODO Auto-generated method stub
-		
+		MaxPQ<Viaje> aux=colaMes;
+		Queue<Viaje> lista=new Queue<>();
+		for(int i=0; i<aux.size()&&lista.size()<n;i++)
+		{
+			Viaje v=aux.delMax();
+			if(v.getMean_travel_time()>=limiteBajoTiempo&&v.getMean_travel_time()<=limiteAltoTiempo)
+			{
+				lista.enqueue(v);
+			}
+		}
+		for(int i=lista.size(); i>0;i--)
+		{
+			Viaje v=lista.dequeue();
+			System.out.println("zona de origen: "+v.getSourceid()+", zona de destino: "+v.getDstid()+", mes: "+v.getInfo()+", tiempo promedio: "+v.getMean_travel_time());
+		}
 	}
 
 	public void nZonasMasNorte(int n) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void buscarNodos(double latitud, double longitud) {
+	public void buscarNodos(double latitud, double longitud) 
+	{
 		// TODO Auto-generated method stub
-		
+		Queue<NodoMallavial> lista=new Queue<>();
+		for(int i=0; i<nodos.size(); i++)
+		{
+			DecimalFormat df = new DecimalFormat("#.###");		
+			if(df.format(nodos.get(i).getLatitud())==df.format(latitud)&&df.format(nodos.get(i).getLongitud())==df.format(longitud))
+			{
+				lista.enqueue(nodos.get(i));
+			}
+		}
+		System.out.println("Numero de nodos: "+lista.size());
+		for(int i=lista.size();i>0;i--)
+		{
+			NodoMallavial n=lista.dequeue();
+			System.out.println("ID: "+n.getId()+", latitud: "+n.getLatitud()+", longitud: "+n.getLongitud());
+		}
 	}
 
 	public void tiemposEsperaRangoDadoDeDesviaciones(int n, double limiteBajoDesviacion, double limiteAltoDesviacion) {
 		// TODO Auto-generated method stub
-		
+		MaxPQ<Viaje> aux=colaMes;
+		Queue<Viaje> lista=new Queue<>();
+		for(int i=aux.size(); i>0&&lista.size()<n;i++)
+		{
+			Viaje v=aux.delMax();
+			if(v.getStandard_deviation_travel_time()>=limiteBajoDesviacion&&v.getStandard_deviation_travel_time()<=limiteAltoDesviacion)
+			{
+				lista.enqueue(v);
+			}
+		}
+		for(int i=lista.size(); i>0;i--)
+		{
+			Viaje v=lista.dequeue();
+			System.out.println("zona de origen: "+v.getSourceid()+", zona de destino: "+v.getDstid()+", mes: "+v.getInfo()+", desviacion estandar: "+v.getStandard_deviation_travel_time());
+		}
 	}
 
 	public void tiemposZonaOrigenYHoraDada(double zonaOrigen, double hora) {
 		// TODO Auto-generated method stub
-		
+		MaxPQ<Viaje> aux=colaHora;
+		for(int i=aux.size(); i>0; i++)
+		{
+			Viaje v=aux.delMax();
+			if(v.getSourceid()==zonaOrigen&&v.getInfo()==hora)
+			{
+				System.out.println("zona de origen: "+v.getSourceid()+", zona de destino: "+v.getDstid()+", hora: "+v.getInfo()+", tiempo promedio: "+v.getMean_travel_time());
+			}
+		}
 	}
 
-	public void tiemposZonaDestinoRangoHoraDada(double zonaDestino, double limiteBajoHora, double limiteAltoHora) {
+	public void tiemposZonaDestinoRangoHoraDada(double zonaDestino, double limiteBajoHora, double limiteAltoHora) 
+	{
 		// TODO Auto-generated method stub
-		
+		MaxPQ<Viaje> aux=colaHora;
+		for(int i=aux.size(); i>0; i++)
+		{
+			Viaje v=aux.delMax();
+			if(v.getDstid()==zonaDestino&&(v.getInfo()>=limiteBajoHora&&v.getInfo()<=limiteAltoHora))
+			{
+				System.out.println("zona de origen: "+v.getSourceid()+", zona de destino: "+v.getDstid()+", hora: "+v.getInfo()+", tiempo promedio: "+v.getMean_travel_time());
+			}
+		}
 	}
 
 	public void zonasPriorizadasMayorCantidadNodos(int n) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void graficaASCII() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
