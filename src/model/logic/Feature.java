@@ -14,12 +14,15 @@ public class Feature {
 	@SerializedName("Properies")
 	@Expose
 	private Properties Property;
+	
 
-	public Feature(String type, Geometry geometry, Properties property) {
-		super();
+
+	public Feature(String type, Geometry geometry, Properties property ) {
+	
 		this.type = type;
 		this.geometry = geometry;
 		Property = property;
+		
 	}
 
 	public Properties getProperty() {

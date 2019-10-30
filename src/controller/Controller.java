@@ -50,12 +50,12 @@ public class Controller {
 			case 3:
 				System.out.println("--------- \nBuscar los nodos que delimitan las zonas por Localización Geográfica");
 				System.out.println("Escriba la latitud de la zona que desea consultar:");
-				double latitud=lector.nextDouble();
+				String latitud=lector.next();
 				System.out.println("Escriba la longitud de la zona que desea consultar:");
-				double longitud=lector.nextDouble();
+				String longitud=lector.next();
 				modelo.buscarNodosDelimitanZona(latitud, longitud);
 				break;
-
+			
 			case 4:
 				System.out.println("--------- \nBuscar los tiempos promedio de viaje que están en un rango y que son del primer trimestre del 2018");
 				System.out.println("Escriba el numero de datos que desea consultar:");
@@ -66,7 +66,7 @@ public class Controller {
 				double limiteAltoTiempo=lector.nextDouble();
 				modelo.tiempoPromedioRango(N, limiteBajoTiempo, limiteAltoTiempo);
 				break;
-
+	
 			case 5: 
 				System.out.println("--------- \nBuscar los N zonas que están más al norte");
 				System.out.println("Escriba el numero de datos que desea consultar:");
@@ -77,10 +77,10 @@ public class Controller {
 			case 6: 
 				System.out.println("--------- \nBuscar nodos de la malla vial por Localización Geográfica (latitud, longitud)");
 				System.out.println("Escriba la latitud de la zona que desea consultar:");
-				latitud=lector.nextDouble();
+				Double platitud=lector.nextDouble();
 				System.out.println("Escriba la longitud de la zona que desea consultar:");
-				longitud=lector.nextDouble();
-				modelo.buscarNodos(latitud, longitud);
+				Double plongitud=lector.nextDouble();
+				modelo.buscarNodos(platitud, plongitud);
 				break;	
 
 			case 7: 
@@ -123,7 +123,11 @@ public class Controller {
 
 			case 11: 
 				System.out.println("--------- \nGráfica ASCII - Porcentaje de datos faltantes para el primer semestre 2018");
-				modelo.graficaASCII();
+				System.out.println("Trimestre");
+				double trimestre=lector.nextDouble();
+				System.out.println("Hora");
+				double Hora=lector.nextDouble();
+				modelo.graficaASCII(trimestre, Hora);
 				break;
 
 			case 12: 

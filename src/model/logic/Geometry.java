@@ -6,12 +6,12 @@ public class Geometry {
 	
 	private String type;
 	
-	private List<List<List<List<Double>>>> coordinates;
+	private List<Coordinate> coordinates;
 	
 
 	
 	
-	public Geometry(String type, List<List<List<List<Double>>>> coordinates) {
+	public Geometry(String type, List<Coordinate> coordinates) {
 		super();
 		this.type = type;
 		this.coordinates = coordinates;
@@ -25,11 +25,11 @@ public class Geometry {
 		this.type = type;
 	}
 	
-	public List<List<List<List<Double>>>> getCoordinates() {
+	public List<Coordinate> getCoordinates() {
 		return coordinates;
 	}
 	
-	public void setCoordinates(List<List<List<List<Double>>>> coordinates) {
+	public void setCoordinates(List<Coordinate> coordinates) {
 		this.coordinates = coordinates;
 	}
 	

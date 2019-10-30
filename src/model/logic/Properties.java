@@ -118,6 +118,6 @@ public class Properties {
 
 	public void setDISPLAYNAME(String pDISPLAYNAME) 
 	{
-	this.DISPLAYNAME = DISPLAYNAME;
+	this.DISPLAYNAME = pDISPLAYNAME;
 	}
 }
